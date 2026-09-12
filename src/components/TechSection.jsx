@@ -62,9 +62,12 @@ const TechSection = () => {
       <ToastContainer />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
-        <div className="mb-8">
+        <div className="mb-8 text-center lg:text-left">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
-            Explore the <span className="text-[#DB2777]">Technologies</span>
+            Explore the{" "}
+            <span className="bg-linear-to-r from-orange-500 via-pink-500 to-purple-600 bg-clip-text text-transparent lg:bg-none lg:text-[#EC4899]">
+              Technologies
+            </span>
           </h2>
           <p className="text-xs sm:text-sm text-slate-500 mt-1">
             Pick one technology per category to build your ideal stack.

@@ -10,8 +10,13 @@ const TechSection = () => {
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
-    fetch("/src/data/technologies.json")
-      .then((res) => res.json())
+    fetch("/technologies.json")
+      .then((res) => {
+        if (!res.ok) {
+          throw new Error("Failed to fetch JSON data");
+        }
+        return res.json();
+      })
       .then((data) => {
         setTechnologies(data);
         setIsLoading(false);
@@ -66,16 +71,18 @@ const TechSection = () => {
 
   return (
     <section id="technologies" className="py-12 bg-slate-50 min-h-screen">
-      <ToastContainer position="top-right" autoClose={5000} hideProgressBar={false} />
+      <ToastContainer
+        position="top-right"
+        autoClose={5000}
+        hideProgressBar={false}
+      />
 
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="mb-8 text-center lg:text-left">
           <h2 className="text-2xl sm:text-3xl font-extrabold text-slate-900">
             Explore the{" "}
-            <span className="text-brand-gradient">
-              Technologies
-            </span>
+            <span className="text-brand-gradient">Technologies</span>
           </h2>
           <p className="text-xs sm:text-sm text-slate-500 mt-1">
             Pick technologies per category to build your ideal stack.
@@ -86,13 +93,17 @@ const TechSection = () => {
         {isLoading ? (
           <div className="flex flex-col items-center justify-center py-20 space-y-3">
             <div className="w-10 h-10 border-4 border-slate-200 border-t-pink-500 rounded-full animate-spin"></div>
-            <p className="text-sm text-slate-500 font-medium">Loading technologies...</p>
+            <p className="text-sm text-slate-500 font-medium">
+              Loading technologies...
+            </p>
           </div>
         ) : (
           <div className="grid grid-cols-1 lg:grid-cols-4 gap-8 items-start">
             <div className="lg:col-span-3 grid grid-cols-1 sm:grid-cols-2 xl:grid-cols-3 gap-6">
               {technologies.map((tech) => {
-                const isAdded = selectedStack.some((item) => item.id === tech.id);
+                const isAdded = selectedStack.some(
+                  (item) => item.id === tech.id,
+                );
                 return (
                   <TechCard
                     key={tech.id}

@@ -1,6 +1,5 @@
 import { useState, useEffect } from "react";
-import { ToastContainer, toast } from "react-toastify";
-import "react-toastify/dist/ReactToastify.css";
+import { toast } from "react-toastify";
 import TechCard from "./TechCard";
 import YourStackSidebar from "./YourStackSidebar";
 
@@ -32,18 +31,12 @@ const TechSection = () => {
     const isAlreadyAdded = selectedStack.some((item) => item.id === tech.id);
 
     if (isAlreadyAdded) {
-      toast.warning(`"${tech.name}" is already in your stack!`, {
-        position: "top-right",
-        autoClose: 5000,
-      });
+      toast.warning(`"${tech.name}" is already in your stack!`);
       return;
     }
 
     setSelectedStack((prev) => [...prev, tech]);
-    toast.success(`Added "${tech.name}" to your stack!`, {
-      position: "top-right",
-      autoClose: 5000,
-    });
+    toast.success(`Added "${tech.name}" to your stack!`);
   };
 
   // 2. Remove Alert
@@ -52,31 +45,20 @@ const TechSection = () => {
 
     if (removedItem) {
       setSelectedStack((prev) => prev.filter((item) => item.id !== techId));
-      toast.info(`Removed "${removedItem.name}" from your stack.`, {
-        position: "top-right",
-        autoClose: 5000,
-      });
+      toast.info(`Removed "${removedItem.name}" from your stack.`);
     }
   };
 
   // 3. Remove All Alert
   const handleRemoveAll = () => {
     if (selectedStack.length === 0) return;
+
     setSelectedStack([]);
-    toast.error("Cleared all technologies from your stack!", {
-      position: "top-right",
-      autoClose: 5000,
-    });
+    toast.error("Cleared all technologies from your stack!");
   };
 
   return (
     <section id="technologies" className="py-12 bg-slate-50 min-h-screen">
-      <ToastContainer
-        position="top-right"
-        autoClose={5000}
-        hideProgressBar={false}
-      />
-
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         {/* Section Header */}
         <div className="mb-8 text-center lg:text-left">
